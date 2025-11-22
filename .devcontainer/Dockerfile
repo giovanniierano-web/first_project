@@ -9,10 +9,11 @@ ENV PYTHONPATH=/app
 # Aggiorna i pacchetti di sistema
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* 
+
 
 # Installa le librerie Python
-RUN pip install --no-cache-dir numpy requests
+RUN pip install --no-cache-dir numpy requests datetime pandas geopandas 
 
 # Imposta la directory di lavoro
 WORKDIR /app
