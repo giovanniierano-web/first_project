@@ -1,29 +1,24 @@
-# Base image GCC
-FROM gcc:12
+FROM python:3.11-slim
 
-# Installiamo Python3, pip e strumenti essenziali
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
-    python3-venv \
-    python3-dev \
-    cmake \
-    make \
-    gdb \
-    git \
-    curl \
+# Evita problemi di buffer nei log
+ENV PYTHONUNBUFFERED=1
+
+# Imposta la root del progetto nel PYTHONPATH
+ENV PYTHONPATH=/app
+
+# Aggiorna i pacchetti di sistema
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Creiamo la virtualenv
-RUN python3 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
+# Installa le librerie Python
+RUN pip install --no-cache-dir numpy requests
 
-# Aggiorniamo pip e installiamo librerie Python
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir requests numpy
+# Imposta la directory di lavoro
+WORKDIR /app
 
-# Cartella di lavoro
-WORKDIR /workspace
+# Copia i file del tuo progetto
+COPY . /app
 
 # Comando di default
-CMD ["/bin/bash"]
+CMD ["python3"]

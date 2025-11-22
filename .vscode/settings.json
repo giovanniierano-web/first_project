@@ -1,0 +1,18 @@
+{
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "${workspaceFolder}"
+    },
+    "python.testing.unittestEnabled": true,
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "test_*.py"
+    ],
+    "python.experiments.optOutFrom": [
+        "pythonTestAdapter"
+    ],
+    "python.testing.pytestEnabled": false
+}
+
